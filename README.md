@@ -21,3 +21,15 @@
         * TelaInicial
 ---
 Todo o projeto seguirá esse padrão.
+
+---
+---
+* Dados da classe Aluno
+    * id, nome → construtor padrão +  construtor (id, nome);
+    * metodos get-set;
+
+* DAO → Modulo de conexao
+    * fazer conexão com o postgres;
+    * AlunosDao → 
+    → 
+    
