@@ -18,7 +18,16 @@
 *.zip
 *.tar.gz
 *.rar
+# files em java
+
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 /ProjetoEscola/nbproject/private/
+ProjetoEscola/manifest.mf
+ProjetoEscola/nbproject/build-impl.xml
+ProjetoEscola/nbproject/project.properties
+ProjetoEscola/nbproject/genfiles.properties
+ProjetoEscola/build.xml
+ProjetoEscola/src/view/TelaInicial.form
+ProjetoEscola/nbproject/project.xml
