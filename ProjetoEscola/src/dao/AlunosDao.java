@@ -15,7 +15,7 @@ import model.Alunos;
  */
 public class AlunosDao {
 
-    private Connection conexao;
+    private Connection conexao; // referencia;
 
     // Construtor que preparar a conexao;
     public AlunosDao() {
@@ -37,15 +37,20 @@ public class AlunosDao {
             throw new Exception("Error ao inserir registro" + erro.getMessage());
         }
     }
-    
+
     public List<Alunos> getAllAlunos() throws Exception {
+        //           ↓ isso se chama referencia.
         List<Alunos> listAlunos = new ArrayList<Alunos>();
-        String sql = "SELECT * FROM aluno";
+        // buscar por ordenação por ID;
+        String sql = "SELECT * from aluno ORDER by aluno.alu_id";
+        //String sql = "SELECT * FROM aluno";
         try {
             Statement statement = conexao.createStatement();
+            //                              ↓ consultar;
             ResultSet rs = statement.executeQuery(sql);
+            //        ↓ enquato estive proximo faça;
             while (rs.next()) {
-
+                //     ↓ fazendo um estaciação com o [new]
                 Alunos alunos = new Alunos();
                 alunos.setId(rs.getInt("alu_id"));
                 alunos.setNome(rs.getString("alu_nome"));
@@ -60,14 +65,13 @@ public class AlunosDao {
         }
         return listAlunos;
     }
-    
-    
 
     // 2 etapa 2.-2
     // Metodo getAlunosById
     public Alunos getAlunosById(int id) throws Exception {
 
         Alunos alunos = new Alunos();
+
         String sql = "SELECT * FROM aluno WHERE alu_id=?";
 
         try {
@@ -84,5 +88,39 @@ public class AlunosDao {
             throw new Exception("Erro ao buscar no banco de dados: Alunos!!\n" + erro.getMessage());
         }
         return alunos;
+    }
+
+    public void updateAluno(Alunos aluno) throws Exception {
+        String sql = "UPDATE aluno set alu_nome=? where alu_id=?";
+
+        try {
+            PreparedStatement preparedStatement
+                    = conexao.prepareStatement(sql);
+
+            preparedStatement.setString(1, aluno.getNome());
+            preparedStatement.setInt(2, aluno.getId());
+            preparedStatement.executeUpdate();
+
+        } catch (Exception erro) {
+            throw new Exception("Ocorreu um erro ao alterar este registro\n"
+                    + erro.getMessage());
+        }
+    }
+    // Etapa btnExcluir -4 → AlunosBll -3, → AlunoDao -2.
+    public void deleteAlunos(int id) throws Exception {
+
+        String sql = "DELETE FROM aluno WHERE alu_id=?";
+        try {
+            PreparedStatement preparedStatement
+                    = conexao.prepareStatement(sql);
+
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException erro) {
+            throw new Exception("Ocorreu um erro ao deletar este registro!\n"
+                    + erro.getMessage());
+        }
+
     }
 }
