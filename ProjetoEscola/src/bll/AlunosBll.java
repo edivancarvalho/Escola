@@ -10,12 +10,12 @@ import model.Alunos;
  */
 public class AlunosBll {
 
-    // chama a classe AlunoDao;
+    // chama a classe AlunoDao; "Referenciando"
     private AlunosDao alunoDao;
 
     //Contrutor recebendo a conexão atravez da alunoDao pelo objeto AlunosDao;
     public AlunosBll() {
-        alunoDao = new AlunosDao();
+        alunoDao = new AlunosDao(); // criar uma nova instancia
     }
 
     // metodo adicionar receber os parametros da classe Alunos → aluno.
@@ -24,6 +24,11 @@ public class AlunosBll {
         alunoDao.adicionarAlunos(aluno);
     }
     
+    // Etapa btnExcluir ex. -4 → AlunosBll -3, → AlunoDao
+    public void removerAlunos(Alunos aluno) throws Exception{
+        alunoDao.deleteAlunos(aluno.getId());
+    }
+    //
     public List<Alunos> consultarAlunos() throws Exception {
         return alunoDao.getAllAlunos();
     }
@@ -32,6 +37,10 @@ public class AlunosBll {
     public Alunos consultarAlunosPorId(int id) throws Exception {
         return alunoDao.getAlunosById(id);
         // criar metodo "getAlunosById" em →AlunosDao
+    }
+    
+    public void alterarAlunos (Alunos aluno) throws Exception{
+        alunoDao.updateAluno(aluno);
     }
 
 }
