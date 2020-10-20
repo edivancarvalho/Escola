@@ -1,10 +1,12 @@
 package view;
 
 import bll.AlunosBll;
+import bll.ContatoBll;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Alunos;
+import model.Contato;
 
 /**
  *
@@ -13,8 +15,11 @@ import model.Alunos;
 public class TelaInicial extends javax.swing.JFrame {
 
     // Na tela precisar importa as duas classe de Alunos*[Dao, Bll];
-    Alunos alunoDao = new Alunos();
+    Alunos alunoModel = new Alunos();
     AlunosBll alunoBll = new AlunosBll();
+
+    Contato contato = new Contato();
+    ContatoBll contatoBll = new ContatoBll();
 
     /**
      * Creates new form TelaInicial
@@ -43,6 +48,10 @@ public class TelaInicial extends javax.swing.JFrame {
         btnConsultar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         btnNovo = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        txtTelefone = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        txtTelID = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Bem vindo");
@@ -114,6 +123,10 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setText("Telefone: ");
+
+        jLabel4.setText("Tel-ID");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -136,7 +149,15 @@ public class TelaInicial extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnNovo, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)))
+                        .addComponent(btnNovo, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtTelefone)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtTelID, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -153,8 +174,14 @@ public class TelaInicial extends javax.swing.JFrame {
                         .addComponent(jLabel1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtTelID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
@@ -213,9 +240,10 @@ public class TelaInicial extends javax.swing.JFrame {
 
         try {
             if (id > 0) {
-                alunoDao = alunoBll.consultarAlunosPorId(id);
+                alunoModel = alunoBll.consultarAlunosPorId(id);
                 txtId.setText(id + "");
-                txtNome.setText(alunoDao.getNome());
+
+                txtNome.setText(alunoModel.getNome());
                 btnSalvar.setLabel("Editar");
             } else {
                 btnSalvar.setLabel("Salvar");
@@ -226,15 +254,20 @@ public class TelaInicial extends javax.swing.JFrame {
     }
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         try {
-            alunoDao.setNome(txtNome.getText());
+            contato.setTelefone(txtTelefone.getText());
+//            contato.setAluno(alunoModel);
+
+            alunoModel.setNome(txtNome.getText());
             if (btnSalvar.getLabel().equals("Salvar")) {
-                alunoBll.adicionarAlunos(alunoDao);
+
+                alunoBll.adicionarAlunos(alunoModel);
+                contatoBll.adicionaContato(contato);
                 JOptionPane.showMessageDialog(null, "Aluno inserido com sucesso.");
                 limparCampos();
 
             } else {
                 // alterarAluno
-                alunoBll.alterarAlunos(alunoDao);
+                alunoBll.alterarAlunos(alunoModel);
                 JOptionPane.showMessageDialog(null, "Dados do Aluno alterados com sucesso.");
             }
 //            JOptionPane.showMessageDialog(null, "Aluno NÃO inserido!!");
@@ -249,6 +282,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private void tableAlunosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableAlunosMouseClicked
         int linha = tableAlunos.getSelectedRow();
         Integer codigo = Integer.parseInt(tableAlunos.getValueAt(linha, 0).toString());
+
         try {
             preencheCampos((int) codigo);
 
@@ -268,7 +302,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         // Etapa btnExcluir ex. -4 → AlunosBll
         try {
-            alunoBll.removerAlunos(alunoBll.consultarAlunosPorId(alunoDao.getId()));
+            alunoBll.removerAlunos(alunoBll.consultarAlunosPorId(alunoModel.getId()));
             limparCampos();
             JOptionPane.showMessageDialog(null, "Aluno(a) excluido com Sucesso.");
             // faz novamente a busca no banco de dados;
@@ -326,10 +360,14 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableAlunos;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNome;
+    private javax.swing.JTextField txtTelID;
+    private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
 }
