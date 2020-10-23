@@ -42,5 +42,10 @@ public class AlunosBll {
     public void alterarAlunos (Alunos aluno) throws Exception{
         alunoDao.updateAluno(aluno);
     }
-
+    
+    public  void validarAlunos(Alunos aluno)throws  Exception{
+        if ("".equals(aluno.getNome())){
+            throw new Exception("Preenchar todos os campos obrigatorios");
+        }
+    }
 }
