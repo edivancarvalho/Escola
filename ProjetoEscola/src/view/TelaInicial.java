@@ -248,18 +248,20 @@ public class TelaInicial extends javax.swing.JFrame {
             } else {
                 btnSalvar.setLabel("Salvar");
             }
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
+
     }
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+
         try {
             contato.setTelefone(txtTelefone.getText());
 //            contato.setAluno(alunoModel);
-
             alunoModel.setNome(txtNome.getText());
-            if (btnSalvar.getLabel().equals("Salvar")) {
 
+            if (btnSalvar.getLabel().equals("Salvar")) {
                 alunoBll.adicionarAlunos(alunoModel);
                 contatoBll.adicionaContato(contato);
                 JOptionPane.showMessageDialog(null, "Aluno inserido com sucesso.");
@@ -272,6 +274,7 @@ public class TelaInicial extends javax.swing.JFrame {
             }
 //            JOptionPane.showMessageDialog(null, "Aluno NÃO inserido!!");
             consultarAlunos(alunoBll.consultarAlunos());
+
             limparCampos();
 
         } catch (Exception e) {
