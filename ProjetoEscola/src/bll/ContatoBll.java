@@ -2,7 +2,6 @@ package bll;
 
 import dao.ContatoDao;
 import java.util.List;
-import model.Alunos;
 import model.Contato;
 
 /**
