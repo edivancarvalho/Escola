@@ -31,6 +31,9 @@ public class AlunosDao {
             // preparando a conexao;
             PreparedStatement preparedStatement = conexao.prepareStatement(sql);
             // pegar os dados da variavel Alunos usando o getNome;
+            //-------------------
+            
+            //-------------------
             preparedStatement.setString(1, aluno.getNome());
             preparedStatement.executeUpdate(); // executa o comando da String sql;
         } catch (SQLException erro) {
