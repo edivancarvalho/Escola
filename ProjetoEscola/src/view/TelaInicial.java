@@ -18,6 +18,7 @@ public class TelaInicial extends javax.swing.JFrame {
     Alunos alunoModel = new Alunos();
     AlunosBll alunoBll = new AlunosBll();
 
+    //AlunosDao alunodao = new AlunosDao();
     Contato contato = new Contato();
     ContatoBll contatoBll = new ContatoBll();
 
@@ -48,10 +49,6 @@ public class TelaInicial extends javax.swing.JFrame {
         btnConsultar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         btnNovo = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        txtTelefone = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        txtTelID = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Bem vindo");
@@ -123,10 +120,6 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("Telefone: ");
-
-        jLabel4.setText("Tel-ID");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -149,15 +142,7 @@ public class TelaInicial extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnNovo, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTelefone)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtTelID, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnNovo, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -174,13 +159,7 @@ public class TelaInicial extends javax.swing.JFrame {
                         .addComponent(jLabel1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtTelID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -216,6 +195,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private void limparCampos() {
         txtId.setText("");
         txtNome.setText("");
+
     }
 
     // 2° etapa 2.0
@@ -257,20 +237,24 @@ public class TelaInicial extends javax.swing.JFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
 
         try {
-            contato.setTelefone(txtTelefone.getText());
-//            contato.setAluno(alunoModel);
+            contato.setAluno(alunoModel);
             alunoModel.setNome(txtNome.getText());
+            // contato nao esta funcionando;
 
+//            contato.setTelefone(txtTelefone.getText());
+//            Alunos aluno = alunodao.getAlunosById(Integer.parseInt(txtId.getText()));
+//            contato.setAluno(aluno);
             if (btnSalvar.getLabel().equals("Salvar")) {
                 alunoBll.adicionarAlunos(alunoModel);
                 contatoBll.adicionaContato(contato);
-                JOptionPane.showMessageDialog(null, "Aluno inserido com sucesso.");
-                limparCampos();
+                JOptionPane.showMessageDialog(null, "Nome e contato inserido com sucesso.");
+
+                System.out.println("contato salvo");
 
             } else {
                 // alterarAluno
                 alunoBll.alterarAlunos(alunoModel);
-                JOptionPane.showMessageDialog(null, "Dados do Aluno alterados com sucesso.");
+                JOptionPane.showMessageDialog(null, "Dados do Aluno alterados com sucesso #####.");
             }
 //            JOptionPane.showMessageDialog(null, "Aluno NÃO inserido!!");
             consultarAlunos(alunoBll.consultarAlunos());
@@ -363,14 +347,10 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableAlunos;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNome;
-    private javax.swing.JTextField txtTelID;
-    private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
 }

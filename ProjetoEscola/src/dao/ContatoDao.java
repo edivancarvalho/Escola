@@ -86,14 +86,14 @@ public class ContatoDao {
     // Dao para adicionar.
     public void adicionarContato(Contato contato) throws Exception {
         // variavel que ira realizar o insert
-        String sql = "insert into contato (con_telefone,con_alu_id) VALUES (?,?)";
+        String sql = "insert into contato (con_telefone, con_alu_id) VALUES (?, ?)";
 
         try {
             // preparando a conexao;
             PreparedStatement preparedStatement = conexao.prepareStatement(sql);
             // pegar os dados da variavel Alunos usando o getNome;
-            preparedStatement.setString(1, contato.getTelefone());
-            preparedStatement.setInt(2, contato.getAluno().getId());
+            preparedStatement.setObject(1, contato.getTelefone());
+           preparedStatement.setObject(2, contato.getAluno().getId());
             
             preparedStatement.executeUpdate(); // executa o comando da String sql;
         } catch (SQLException erro) {

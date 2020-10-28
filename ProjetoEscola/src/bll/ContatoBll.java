@@ -12,6 +12,10 @@ public class ContatoBll {
 
     private ContatoDao contatoDao;
 
+//    public ContatoBll() {
+//        contatoDao = new ContatoDao();
+//    }
+    
     public ContatoBll() {
         contatoDao = new ContatoDao();
     }

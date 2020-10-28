@@ -45,8 +45,8 @@ public class AlunosDao {
         //           ↓ isso se chama referencia.
         List<Alunos> listAlunos = new ArrayList<Alunos>();
         // buscar por ordenação por ID;
-        String sql = "SELECT * from aluno ORDER by aluno.alu_id";
-        //String sql = "SELECT * FROM aluno";
+        //String sql = "SELECT * from aluno ORDER by aluno.alu_id";
+        String sql = "SELECT * FROM aluno";
         try {
             Statement statement = conexao.createStatement();
             //                              ↓ consultar;
@@ -78,6 +78,7 @@ public class AlunosDao {
         String sql = "SELECT * FROM aluno WHERE alu_id=?";
 
         try {
+            
             PreparedStatement preparedStatement = conexao.prepareStatement(sql);
             preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
