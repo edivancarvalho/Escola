@@ -270,10 +270,8 @@ public class TelaInicial extends javax.swing.JFrame {
     private void tableAlunosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableAlunosMouseClicked
         int linha = tableAlunos.getSelectedRow();
         Integer codigo = Integer.parseInt(tableAlunos.getValueAt(linha, 0).toString());
-
         try {
             preencheCampos((int) codigo);
-
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Erro ao preencher campo");
         }
