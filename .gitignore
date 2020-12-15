@@ -33,3 +33,4 @@ ProjetoEscola/src/view/TelaInicial.form
 ProjetoEscola/nbproject/project.xml
 /ProjetoEscola/build/
 /ProjetoEscola/dist/
+ProjetoEscola/src/dao/ModuloConexaoDao.java
